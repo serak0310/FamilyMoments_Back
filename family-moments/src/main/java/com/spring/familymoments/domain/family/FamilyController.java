@@ -90,7 +90,7 @@ public class FamilyController {
 
     /**
      * 가족원 전체 조회 API
-     * [GET] /:familyId/users
+     * [GET] /:familyId/users?includeSelf=false
      *
      * @return BaseResponse<FamilyDto>
      */
@@ -98,8 +98,10 @@ public class FamilyController {
     @GetMapping("/{familyId}/users")
     @Operation(summary = "가족원 전체 조회", description = "현재 활동 중인 전체 가족 구성원을 조회합니다.")
     public BaseResponse<List<GetFamilyAllResInterface>> getFamilyAll(
-            @PathVariable Long familyId) {
-        List<GetFamilyAllResInterface> getFamilyAllRes = familyService.getFamilyAll(familyId);
+            @PathVariable Long familyId,
+            @RequestParam(defaultValue = "true") boolean includeSelf,
+            @AuthenticationPrincipal @Parameter(hidden = true) User user) {
+        List<GetFamilyAllResInterface> getFamilyAllRes = familyService.getFamilyAll(familyId, includeSelf, user);
         return new BaseResponse<>(getFamilyAllRes);
     }
 

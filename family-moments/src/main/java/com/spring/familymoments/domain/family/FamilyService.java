@@ -112,11 +112,11 @@ public class FamilyService {
 
     // 가족원 전체 조회
     @Transactional
-    public List<GetFamilyAllResInterface> getFamilyAll(Long familyId) throws BaseException {
+    public List<GetFamilyAllResInterface> getFamilyAll(Long familyId, boolean includeSelf, User user) throws BaseException {
         familyRepository.findById(familyId)
                 .orElseThrow(() -> new BaseException(FIND_FAIL_FAMILY));
 
-        return userFamilyRepository.findActiveUsersByFamilyId(familyId);
+        return userFamilyRepository.findActiveUsersByFamilyId(familyId, includeSelf, user.getUserId());
     }
 
     //초대코드로 가족 조회
