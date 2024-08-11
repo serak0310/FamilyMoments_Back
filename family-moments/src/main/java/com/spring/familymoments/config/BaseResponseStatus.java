@@ -66,6 +66,9 @@ public enum BaseResponseStatus {
     FIND_FAIL_POST(false, HttpStatus.BAD_REQUEST.value(), "비활성화된 게시글입니다."),
     NOT_EQUAL_NEW_PASSWORD(false, HttpStatus.BAD_REQUEST.value(), "입력한 비밀번호와 일치하지 않습니다."),
     EXPIRED_AT_ERROR(false, 471, "탈퇴를 위해 가입했던 소셜 계정으로 재로그인 하세요"),
+    FIND_FAIL_DATE(false, HttpStatus.BAD_REQUEST.value(), "날짜가 존재하지 않습니다."),
+
+
     /**
      * 500 : Database, Server 오류
      */
@@ -103,6 +106,8 @@ public enum BaseResponseStatus {
     minnie_POST_SAVE_FAIL(false, HttpStatus.INTERNAL_SERVER_ERROR.value(), "게시물 저장에 실패했습니다."),
     minnie_POSTLOVES_NON_EXISTS_LOVE(false, HttpStatus.NOT_FOUND.value(), "좋아요가 존재하지 않습니다."),
     minnie_FAMILY_INVALID_USER(false, HttpStatus.FORBIDDEN.value(), "해당 가족의 멤버가 아닙니다"),
+
+    INVALID_TIME_FORMAT(false, HttpStatus.INTERNAL_SERVER_ERROR.value(), "날짜 형식이 맞지 않습니다."),
 
     POSTLOVE_ALREADY_EXISTS(false, HttpStatus.BAD_REQUEST.value(), "이미 좋아요를 누른 게시물입니다."),
     FIND_FAIL_POSTLOVE(false, HttpStatus.NOT_FOUND.value(), "좋아요를 누르지 않아 취소할 수 없습니다."),
