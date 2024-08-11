@@ -92,9 +92,8 @@ public class FamilyController {
     @Operation(summary = "가족원 전체 조회", description = "현재 활동 중인 전체 가족 구성원을 조회합니다.")
     public BaseResponse<List<GetFamilyAllResInterface>> getFamilyAllMembers(
             @PathVariable Long familyId,
-            @RequestParam(defaultValue = "true") boolean includeSelf,
             @AuthenticationPrincipal @Parameter(hidden = true) User user) {
-        List<GetFamilyAllResInterface> getFamilyAllRes = familyService.getFamilyAllMembers(familyId, includeSelf, user);
+        List<GetFamilyAllResInterface> getFamilyAllRes = familyService.getFamilyAllMembers(familyId, user);
         return new BaseResponse<>(getFamilyAllRes);
     }
 
@@ -195,7 +194,8 @@ public class FamilyController {
             @AuthenticationPrincipal @Parameter(hidden = true) User user,
             @PathVariable Long familyId,
             @RequestParam("uploadCycle") int uploadCycle) {
-        familyService.updateUploadCycle(user, familyId, uploadCycle);
+        Integer cycle = (uploadCycle == 0) ? null : uploadCycle;
+        familyService.updateUploadCycle(user, familyId, cycle);
         return new BaseResponse<>("업로드 주기가 수정되었습니다.");
     }
 

@@ -106,19 +106,7 @@ public class FamilyService {
         familyRepository.findById(familyId)
                 .orElseThrow(() -> new BaseException(FIND_FAIL_FAMILY));
 
-        String userId = user.getId();
-        List<GetFamilyAllResInterface> members = userFamilyRepository.findActiveUsersByFamilyId(familyId);
-
-        // 요청한 본인은 제외하고 반환
-        Iterator<GetFamilyAllResInterface> iterator = members.iterator();
-        while (iterator.hasNext()) {
-            if (iterator.next().getId().equals(userId)) {
-                iterator.remove();
-                break;
-            }
-        }
-
-        return members;
+        return userFamilyRepository.findActiveUsersByFamilyId(familyId, user.getUserId());
     }
 
     // 초대코드로 가족 조회
@@ -193,7 +181,7 @@ public class FamilyService {
 
     // 업로드 주기 수정
     @Transactional
-    public void updateUploadCycle(User user, Long familyId, int uploadCycle) {
+    public void updateUploadCycle(User user, Long familyId, Integer uploadCycle) {
         Family family = familyRepository.findById(familyId)
                 .orElseThrow(() -> new BaseException(FIND_FAIL_FAMILY));
 
