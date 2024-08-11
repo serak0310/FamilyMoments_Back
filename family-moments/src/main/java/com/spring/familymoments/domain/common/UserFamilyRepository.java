@@ -37,9 +37,12 @@ public interface UserFamilyRepository extends JpaRepository<UserFamily, Long> {
             "INNER JOIN UserFamilyMapping m ON u.userId = m.userId " +
             "INNER JOIN Family f ON m.familyId = f.familyId " +
             "WHERE m.status = 'ACTIVE' " +
-            "AND f.familyId = :familyId",
+            "AND f.familyId = :familyId " +
+            "AND (:includeSelf = true OR u.userId <> :userId)",
             nativeQuery = true)
-    List<GetFamilyAllResInterface> findActiveUsersByFamilyId(@Param("familyId") Long familyId);
+    List<GetFamilyAllResInterface> findActiveUsersByFamilyId(@Param("familyId") Long familyId,
+                                                             @Param("includeSelf") boolean includeSelf,
+                                                             @Param("userId") Long userId);
 
     boolean existsByUserIdAndFamilyId(User userId, Family familyId);
 
