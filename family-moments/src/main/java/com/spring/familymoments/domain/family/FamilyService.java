@@ -45,24 +45,20 @@ public class FamilyService {
 
         checkFamilyLimit(owner);
 
-        checkFamilyLimit(owner);
-
         // 초대 링크 생성
         String invitationCode = UUID.randomUUID().toString();
-        String inviteLink = "https://family-moments.com/invite/" + invitationCode;
 
         // 가족 입력 객체 생성
         Family family = Family.builder()
                 .owner(owner)
                 .familyName(postFamilyReq.getFamilyName())
                 .uploadCycle(postFamilyReq.getUploadCycle())
-                .inviteCode(inviteLink)
+                .inviteCode(invitationCode)
                 .representImg(fileUrl)
                 .build();
 
         // 가족 저장
         Family savedFamily = familyRepository.save(family);
-
 
         // 2. 유저 가족 매핑 튜플 생성
         // 가족 외래키 생성
