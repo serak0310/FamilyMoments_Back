@@ -114,7 +114,7 @@ public class FamilyService {
     public FamilyRes getFamilyByInviteCode(String inviteCode) {
         return familyRepository.findByInviteCode(inviteCode)
                 .map(Family::toFamilyRes)
-                .orElse(null);
+                .orElseThrow(() -> new BaseException(FIND_FAIL_FAMILY));
     }
 
 
